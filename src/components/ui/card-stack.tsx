@@ -1,8 +1,6 @@
-"use client";
-import { useEffect, useState } from "react";
-import { motion } from "motion/react";
-
-let interval: any;
+import React, { useState } from "react";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 type Card = {
   id: number;
@@ -11,78 +9,127 @@ type Card = {
   content: React.ReactNode;
 };
 
-export const CardStack = ({
-  items,
-  offset,
-  scaleFactor,
-}: {
-  items: Card[] | any;
-  offset?: number;
-  scaleFactor?: number;
-}) => {
-  const CARD_OFFSET = offset || 40;
-  const SCALE_FACTOR = scaleFactor || 0.06;
-  const [cards, setCards] = useState<Card[] | any>(items);
+const CARDS: Card[] = [
+  {
+    id: 0,
+    name: "Manu Arora",
+    designation: "Senior Software Engineer",
+    content: (
+      <p>
+        These cards are amazing,{" "}
+        <span className={cn("font-bold")}>I want to use them</span> in my
+        project.
+      </p>
+    ),
+  },
+  {
+    id: 1,
+    name: "Elon Musk",
+    designation: "Senior Shitposter",
+    content: (
+      <p>
+        I don’t like this Twitter thing,{" "}
+        <span className={cn("font-bold")}>deleting it right away</span>.
+      </p>
+    ),
+  },
+  {
+    id: 2,
+    name: "Tyler Durden",
+    designation: "Manager Project Mayhem",
+    content: (
+      <p>
+        The first rule of <span className={cn("font-bold")}>Fight Club</span> is
+        you do not talk about fight club.
+      </p>
+    ),
+  },
+];
 
-  useEffect(() => {
-    startFlipping();
+const DRAG_THRESHOLD = -100;
+const CARD_WIDTH = 240;
+const CARD_HEIGHT = 160;
+const OVERLAP = 100;
 
-    return () => clearInterval(interval);
-  }, []);
-  const startFlipping = () => {
-    interval = setInterval(() => {
-      setCards((prevCards: Card[]) => {
-        const newArray = [...prevCards]; // create a copy of the array
-        newArray.unshift(newArray.pop()!); // move the last element to the front
-        return newArray;
-      });
-    }, 5000);
-  };
+export const CardStack: React.FC<{ items?: Card[] }> = ({ items = CARDS }) => {
+  const [expandedId, setExpandedId] = useState<number | null>(null);
 
   return (
-    <div className="relative h-60 w-60 md:h-60 md:w-96">
-      {cards.map((card: any, index: number) => {
-        return (
-          <motion.div
-            key={card.id}
-            className="absolute dark:bg-black bg-white h-60 w-60 md:h-60 md:w-96 rounded-3xl p-4 shadow-xl border border-neutral-200 dark:border-white/[0.1]  shadow-black/[0.1] dark:shadow-white/[0.05] flex flex-col justify-between"
-            style={{
-              transformOrigin: "top center",
-            }}
-            animate={{
-              top: index * -CARD_OFFSET,
-              scale: 1 - index * SCALE_FACTOR, // decrease scale for cards that are behind
-              zIndex: cards.length - index, //  decrease z-index for the cards that are behind
-            }}
-          >
-            <div className="flex gap-4 flex-col  w-full">
-              <motion.div layoutId={`image-${card.title}-${card.id}`}>
-                <img
-                  width={100}
-                  height={100}
-                  src={card.src}
-                  alt={card.title}
-                  className="h-60 w-full  rounded-lg object-cover object-top"
-                />
+    <LayoutGroup>
+      {/* Collapsed scrolling stack */}
+      <div className="fixed inset-x-0 bottom-0 h-[200px] overflow-x-auto pointer-events-auto">
+        <div
+          className="flex items-end h-full relative"
+          style={{
+            width: items.length * (CARD_WIDTH - OVERLAP) + OVERLAP,
+          }}
+        >
+          {items.map((card, idx) => {
+            if (expandedId === card.id) return null;
+            return (
+              <motion.div
+                key={card.id}
+                layoutId={`card-${card.id}`}
+                initial={false}
+                animate={{
+                  width: CARD_WIDTH,
+                  height: CARD_HEIGHT,
+                  borderRadius: 16,
+                  x: idx * (CARD_WIDTH - OVERLAP),
+                  y: 0,
+                  zIndex: idx,
+                }}
+                transition={{ layout: { duration: 0.4, type: "spring" } }}
+                className="absolute shadow-xl bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-4 flex flex-col cursor-grab"
+                drag="y"
+                dragConstraints={{ top: DRAG_THRESHOLD, bottom: 0 }}
+                dragElastic={0.3}
+                onDragEnd={(_, info) => {
+                  if (info.offset.y < DRAG_THRESHOLD) setExpandedId(card.id);
+                }}
+              >
+                <div className="flex-1 overflow-auto">{card.content}</div>
+                <div className="mt-4">
+                  <p className="font-medium dark:text-white">{card.name}</p>
+                  <p className="text-sm dark:text-gray-400">
+                    {card.designation}
+                  </p>
+                </div>
               </motion.div>
-              <div className="flex justify-center items-center flex-col">
-                <motion.h3
-                  layoutId={`title-${card.title}-${card.id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left text-base"
-                >
-                  {card.title}
-                </motion.h3>
-                <motion.p
-                  layoutId={`description-${card.description}-${card.id}`}
-                  className="text-neutral-600 dark:text-neutral-400 text-center md:text-left text-base"
-                >
-                  {card.description}
-                </motion.p>
-              </div>
-            </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Expanded overlay */}
+      <AnimatePresence>
+        {expandedId !== null && (
+          <motion.div
+            layoutId={`card-${expandedId}`}
+            className="fixed inset-0 z-50 bg-white dark:bg-black p-4 overflow-auto cursor-pointer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setExpandedId(null)}
+          >
+            {(() => {
+              const card = items.find((c) => c.id === expandedId)!;
+              return (
+                <>
+                  <div className="flex-1">{card.content}</div>
+                  <div className="mt-4">
+                    <p className="font-medium dark:text-white">{card.name}</p>
+                    <p className="text-sm dark:text-gray-400">
+                      {card.designation}
+                    </p>
+                  </div>
+                </>
+              );
+            })()}
           </motion.div>
-        );
-      })}
-    </div>
+        )}
+      </AnimatePresence>
+    </LayoutGroup>
   );
 };

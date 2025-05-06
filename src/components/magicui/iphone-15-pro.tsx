@@ -1,5 +1,6 @@
 import { SVGProps } from "react";
-import { FullscreenExpandableCards } from "../ui/expandable-card";
+import { ExpandableCardDemo } from "../ui/expandable-card";
+import CardStack from "../ui/card-stack2";
 
 export interface Iphone15ProProps extends SVGProps<SVGSVGElement> {
   width?: number;
@@ -63,13 +64,13 @@ export default function Iphone15Pro({
       />
 
       <foreignObject className="relative" x="21.25" y="19.25" width="389.5" height="843.5">
-        <div className="absolute bottom-[0] left-0"
+        <div 
           style={{
-            overflow: "auto",
             backgroundColor: "white",
           }}
         >
-          <FullscreenExpandableCards />
+          {/* <ExpandableCardDemo /> */}
+          <CardStack />
         </div>
       </foreignObject>
 
