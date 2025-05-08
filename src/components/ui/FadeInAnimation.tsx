@@ -3,9 +3,14 @@ import { motion } from "framer-motion";
 type FadeInAnimationProps = {
   direction: "fadeInLeft" | "fadeInRight" | "fadeInUp" | "fadeInDown" | string;
   children: React.ReactNode;
+  className?: string;
 };
 
-const FadeInAnimation = ({ direction, children }: FadeInAnimationProps) => {
+const FadeInAnimation = ({
+  direction,
+  children,
+  className = "",
+}: FadeInAnimationProps) => {
   let animationProps = {};
 
   switch (direction) {
@@ -49,7 +54,8 @@ const FadeInAnimation = ({ direction, children }: FadeInAnimationProps) => {
   return (
     <motion.div
       {...animationProps}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className={className}
     >
       {children}
     </motion.div>

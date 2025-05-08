@@ -419,7 +419,8 @@ function StyleSheet() {
 
         .iphone-mock {
             position: relative;
-            width: 375px;
+            width: 100%;
+            max-width: 768px;
             height: 812px;
             background-color: #1a1a1a;
             border-radius: 50px;
@@ -427,13 +428,6 @@ function StyleSheet() {
             padding: 0;
             box-sizing: border-box;
             overflow: hidden;
-        }
-
-        @media (max-height: 900px) {
-            .iphone-mock {
-                width: 300px;
-                height: 600px;
-            }
         }
 
         @media (max-height: 600px) {

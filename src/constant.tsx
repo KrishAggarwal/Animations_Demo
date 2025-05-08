@@ -119,8 +119,8 @@ export const cards2 = [
     designation: "Senior Software Engineer",
     content: (
       <p>
-        These cards are amazing, I want to use them in my
-        project. Framer motion is a godsend ngl tbh fam 🙏
+        These cards are amazing, I want to use them in my project. Framer motion
+        is a godsend ngl tbh fam 🙏
       </p>
     ),
   },
@@ -130,10 +130,9 @@ export const cards2 = [
     designation: "Senior Shitposter",
     content: (
       <p>
-        I dont like this Twitter thing,{" "}
-        deleting it right away because yolo. Instead, I
-        would like to call it X.com so that it can easily
-        be confused with adult sites.
+        I dont like this Twitter thing, deleting it right away because yolo.
+        Instead, I would like to call it X.com so that it can easily be confused
+        with adult sites.
       </p>
     ),
   },
@@ -143,12 +142,180 @@ export const cards2 = [
     designation: "Manager Project Mayhem",
     content: (
       <p>
-        The first rule of
-        Fight Club is that you do not talk about fight
-        club. The second rule of
-        Fight club is that you DO NOT TALK about fight
-        club.
+        The first rule of Fight Club is that you do not talk about fight club.
+        The second rule of Fight club is that you DO NOT TALK about fight club.
       </p>
     ),
+  },
+];
+
+export const jobListings = [
+  {
+    id: 0,
+    icon: "/images/icons8-google-48.png",
+    name: "Google",
+    designation: "Product Designer",
+    salary: "$100k/year",
+    type: "Full Time",
+    submitted: "620",
+    primaryRequirement: ["5+ years", "Bachelor's Degree"],
+    recruiterInfo: {
+      image: "/images/user-image.jpg",
+      name: "Emily Hughes",
+      designation: "Recruiter",
+      profileLink: "",
+    },
+    allRequirements: [
+      "5+ years of experience in product design",
+      "Bachelor's degree in Design or related field",
+      "Proficiency in Figma and Adobe Creative Suite",
+      "Strong UX/UI skills and design portfolio",
+      "Experience with user research and testing",
+      "Excellent communication skills",
+    ],
+  },
+  {
+    id: 1,
+    icon: "/images/icons8-google-48.png",
+    name: "Meta",
+    designation: "Frontend Engineer",
+    salary: "$120k/year",
+    type: "Full Time",
+    submitted: "430",
+    primaryRequirement: ["3+ years", "Bachelor's in CS"],
+    recruiterInfo: {
+      image: "/images/user-image.jpg",
+      name: "Daniel Smith",
+      designation: "Talent Acquisition",
+      profileLink: "",
+    },
+    allRequirements: [
+      "3+ years of frontend development experience",
+      "Bachelor's degree in Computer Science",
+      "Strong knowledge of React, HTML, CSS, and JavaScript",
+      "Experience with Next.js or similar frameworks",
+      "Familiarity with RESTful APIs and Git",
+      "Excellent debugging and optimization skills",
+    ],
+  },
+  {
+    id: 2,
+    icon: "/images/icons8-google-48.png",
+    name: "Amazon",
+    designation: "Backend Developer",
+    salary: "$110k/year",
+    type: "Full Time",
+    submitted: "510",
+    primaryRequirement: ["4+ years", "Node.js expertise"],
+    recruiterInfo: {
+      image: "/images/user-image.jpg",
+      name: "Sophia Turner",
+      designation: "Tech Recruiter",
+      profileLink: "",
+    },
+    allRequirements: [
+      "4+ years in backend development",
+      "Expert in Node.js and Express",
+      "Experience with MongoDB and SQL databases",
+      "Understanding of microservices architecture",
+      "Knowledge of AWS services",
+      "Strong problem-solving abilities",
+    ],
+  },
+  {
+    id: 3,
+    icon: "/images/icons8-google-48.png",
+    name: "Netflix",
+    designation: "UI/UX Designer",
+    salary: "$105k/year",
+    type: "Contract",
+    submitted: "290",
+    primaryRequirement: ["2+ years", "Design Portfolio"],
+    recruiterInfo: {
+      image: "/images/user-image.jpg",
+      name: "Liam Johnson",
+      designation: "Creative Hiring Manager",
+      profileLink: "",
+    },
+    allRequirements: [
+      "2+ years of UI/UX design experience",
+      "Proven portfolio showcasing design work",
+      "Strong skills in Sketch, Figma, and prototyping tools",
+      "Knowledge of design systems",
+      "Understanding of user-centered design",
+      "Ability to collaborate with product teams",
+    ],
+  },
+  {
+    id: 4,
+    icon: "/images/icons8-google-48.png",
+    name: "Apple",
+    designation: "iOS Developer",
+    salary: "$130k/year",
+    type: "Full Time",
+    submitted: "370",
+    primaryRequirement: ["5+ years", "Swift expertise"],
+    recruiterInfo: {
+      image: "/images/user-image.jpg",
+      name: "Olivia Brown",
+      designation: "Technical Recruiter",
+      profileLink: "",
+    },
+    allRequirements: [
+      "5+ years of iOS development experience",
+      "Strong proficiency in Swift and Objective-C",
+      "Experience with iOS frameworks and APIs",
+      "Knowledge of mobile UI/UX principles",
+      "Familiarity with Apple's design guidelines",
+      "Strong debugging and unit testing skills",
+    ],
+  },
+  {
+    id: 5,
+    icon: "/images/icons8-google-48.png",
+    name: "Tesla",
+    designation: "Data Analyst",
+    salary: "$90k/year",
+    type: "Full Time",
+    submitted: "220",
+    primaryRequirement: ["2+ years", "Excel & SQL"],
+    recruiterInfo: {
+      image: "/images/user-image.jpg",
+      name: "James Miller",
+      designation: "Recruiter",
+      profileLink: "",
+    },
+    allRequirements: [
+      "2+ years of experience in data analysis",
+      "Advanced Excel and SQL skills",
+      "Proficiency in Python or R is a plus",
+      "Experience with data visualization tools like Tableau",
+      "Strong analytical thinking",
+      "Ability to interpret and present data clearly",
+    ],
+  },
+  {
+    id: 6,
+    icon: "/images/icons8-google-48.png",
+    name: "Spotify",
+    designation: "DevOps Engineer",
+    salary: "$115k/year",
+    type: "Remote",
+    submitted: "180",
+    primaryRequirement: ["3+ years", "CI/CD experience"],
+    recruiterInfo: {
+      image: "/images/user-image.jpg",
+      name: "Isabella Garcia",
+      designation: "Hiring Specialist",
+      profileLink: "",
+    },
+    allRequirements: [
+      "3+ years of DevOps experience",
+      "Experience with CI/CD tools like Jenkins, GitLab CI",
+      "Knowledge of Docker and Kubernetes",
+      "Familiarity with cloud platforms (AWS/GCP)",
+      "Strong scripting skills (Bash, Python)",
+      "Monitoring and logging experience",
+    ],
   },
 ];

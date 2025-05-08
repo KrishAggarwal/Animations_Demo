@@ -38,16 +38,13 @@ const HorizontalScroll: React.FC<{
   return (
     <div
       ref={containerRef}
-      className={
-        "relative w-full overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar cursor-grab select-none " +
-        className
-      }
+      className={`relative w-full overflow-x-auto overflow-y-visible whitespace-nowrap no-scrollbar cursor-grab select-none ${className}`}
       onMouseDown={handleMouseDown}
       onMouseLeave={handleMouseLeave}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
     >
-      <div className="relative h-auto min-w-fit aspect-square">{children}</div>
+      {children}
     </div>
   );
 };

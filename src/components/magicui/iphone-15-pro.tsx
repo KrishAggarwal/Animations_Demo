@@ -1,5 +1,6 @@
-import { SVGProps } from "react";
-import { ExpandableCardDemo } from "../ui/expandable-card";
+// import { SVGProps } from "react";
+// import { ExpandableCardDemo } from "../ui/expandable-card";
+import type { SVGProps } from "react";
 import CardStack from "../ui/card-stack2";
 
 export interface Iphone15ProProps extends SVGProps<SVGSVGElement> {
@@ -15,7 +16,6 @@ export default function Iphone15Pro({
   width = 433,
   height = 882,
   src,
-  children,
   videoSrc,
   ...props
 }: Iphone15ProProps) {
@@ -63,8 +63,14 @@ export default function Iphone15Pro({
         className="fill-[#E5E5E5] stroke-[#E5E5E5] stroke-[0.5] dark:fill-[#404040] dark:stroke-[#404040]"
       />
 
-      <foreignObject className="relative" x="21.25" y="19.25" width="389.5" height="843.5">
-        <div 
+      <foreignObject
+        className="relative"
+        x="21.25"
+        y="19.25"
+        width="389.5"
+        height="843.5"
+      >
+        <div
           style={{
             backgroundColor: "white",
           }}

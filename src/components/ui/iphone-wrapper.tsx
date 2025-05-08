@@ -19,10 +19,12 @@ import React, { useEffect, useRef, useState } from "react";
 export default function WarpOverlay({
   intensity = 0.1,
   children,
+  iPhoneWidth = "425px",
 }: {
   // Increase intensity to make the effect more pronounced
   intensity?: number;
   children?: React.ReactNode;
+  iPhoneWidth?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -33,7 +35,7 @@ export default function WarpOverlay({
     });
   }, [ref]);
 
-  const [selectedEmails, setSelectedEmails] = useState<number[]>([]);
+  const [selectedEmails] = useState<number[]>([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const deform = useMotionValue(0);
@@ -43,28 +45,28 @@ export default function WarpOverlay({
   const scaleX = useTransform(() => 1 - deform.get() * intensity * 0.6);
 
   // Open delete modal and trigger deformation animation
-  const handleDeleteClick = () => {
-    if (selectedEmails.length === 0) return;
+  // const handleDeleteClick = () => {
+  //   if (selectedEmails.length === 0) return;
 
-    setIsDeleteModalOpen(true);
+  //   setIsDeleteModalOpen(true);
 
-    animate([
-      [deform, 1, { duration: 0.3, ease: [0.65, 0, 0.35, 1] }],
-      [deform, 0, { duration: 1.5, ease: [0.22, 1, 0.36, 1] }],
-    ]);
-  };
+  //   animate([
+  //     [deform, 1, { duration: 0.3, ease: [0.65, 0, 0.35, 1] }],
+  //     [deform, 0, { duration: 1.5, ease: [0.22, 1, 0.36, 1] }],
+  //   ]);
+  // };
 
-  const handleCheckboxChange = (index: number) => {
-    setSelectedEmails((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+  // const handleCheckboxChange = (index: number) => {
+  //   setSelectedEmails((prev) =>
+  //     prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+  //   );
+  // };
 
   const closeModal = () => setIsDeleteModalOpen(false);
 
   return (
     <div className="iphone-wrapper">
-      <div className="iphone-mock">
+      <div className="iphone-mock" style={{ maxWidth: iPhoneWidth }}>
         <div className="iphone-screen">
           <div className="dynamic-island"></div>
           <div className="iphone-status-bar">
@@ -328,58 +330,58 @@ function ImmersiveOverlay({
  * ==============   Icons   ================
  */
 
-function DeleteIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 6h18" />
-      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-      <line x1="10" x2="10" y1="11" y2="17" />
-      <line x1="14" x2="14" y1="11" y2="17" />
-    </svg>
-  );
-}
+// function DeleteIcon() {
+//   return (
+//     <svg
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="18"
+//       height="18"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       stroke="currentColor"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     >
+//       <path d="M3 6h18" />
+//       <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+//       <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+//       <line x1="10" x2="10" y1="11" y2="17" />
+//       <line x1="14" x2="14" y1="11" y2="17" />
+//     </svg>
+//   );
+// }
 
 /**
  * ==============   Data   ================
  */
-const fakeEmails = [
-  {
-    subject: "Weekly team update",
-    preview:
-      "Hi team, Just a quick update on our progress this week. We've made significant strides in the new project and...",
-  },
-  {
-    subject: "Your subscription confirmation",
-    preview:
-      "Thank you for subscribing to our newsletter! You'll now receive updates about our latest products and exclusive offers...",
-  },
-  {
-    subject: "Invoice #1234 for April",
-    preview:
-      "Your monthly invoice is now available. Please find attached the detailed breakdown of your subscription charges for...",
-  },
-  {
-    subject: "Security alert: New login",
-    preview:
-      "We detected a new sign-in to your account from a new device or location. If this was you, you can safely ignore this...",
-  },
-  {
-    subject: "Upcoming maintenance notice",
-    preview:
-      "Please be advised that our platform will undergo scheduled maintenance this weekend. During this time, services may be...",
-  },
-];
+// const fakeEmails = [
+//   {
+//     subject: "Weekly team update",
+//     preview:
+//       "Hi team, Just a quick update on our progress this week. We've made significant strides in the new project and...",
+//   },
+//   {
+//     subject: "Your subscription confirmation",
+//     preview:
+//       "Thank you for subscribing to our newsletter! You'll now receive updates about our latest products and exclusive offers...",
+//   },
+//   {
+//     subject: "Invoice #1234 for April",
+//     preview:
+//       "Your monthly invoice is now available. Please find attached the detailed breakdown of your subscription charges for...",
+//   },
+//   {
+//     subject: "Security alert: New login",
+//     preview:
+//       "We detected a new sign-in to your account from a new device or location. If this was you, you can safely ignore this...",
+//   },
+//   {
+//     subject: "Upcoming maintenance notice",
+//     preview:
+//       "Please be advised that our platform will undergo scheduled maintenance this weekend. During this time, services may be...",
+//   },
+// ];
 
 /**
  * ==============   Styles   ================
@@ -406,7 +408,7 @@ function StyleSheet() {
 
         .iphone-mock {
             position: relative;
-            width: 375px;
+            width: 100%;
             height: 812px;
             background-color: #1a1a1a;
             border-radius: 50px;
@@ -416,12 +418,12 @@ function StyleSheet() {
             overflow: hidden;
         }
 
-        @media (max-height: 900px) {
-            .iphone-mock {
-                width: 300px;
-                height: 600px;
-            }
-        }
+        // @media (max-height: 900px) {
+        //     .iphone-mock {
+        //         width: 300px;
+        //         height: 600px;
+        //     }
+        // }
 
         @media (max-height: 600px) {
             .iphone-wrapper {
@@ -515,7 +517,7 @@ function StyleSheet() {
             display: flex;
             flex-direction: column;
             height: 100%;
-            background-color: #0b1011;
+            background-color: #edf2f5;
             color: #f5f5f5;
             border: none;
             border-radius: 0;
