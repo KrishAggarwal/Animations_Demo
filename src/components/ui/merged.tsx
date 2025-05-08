@@ -71,22 +71,39 @@ export function StackedExpandableCards({ items }: { items: JobListing[] }) {
               key={card.id}
               layoutId={`card-${card.id}-${id}`}
               ref={isActive ? ref : undefined}
-              initial={false}
+              initial={{ opacity: 0, y: 400 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                opacity: { duration: 0.4, ease: "easeInOut" },
+                y: { duration: 0.4 + index / 10, ease: "easeOut" },
+
+                type: "spring",
+                duration: 1.2,
+                bounce: 0.3,
+                stiffness: 30,
+                damping: 12,
+                layout: {
+                  duration: 1.2,
+                  type: "spring",
+                  bounce: 0.3,
+                },
+              }}
               className={`p-4 whitespace-normal no-scrollbar ${
                 isActive
                   ? "z-40 fixed inset-0 overflow-auto"
-                  : "absolute w-[200px] h-[250px] rounded-2xl cursor-grab border-white/20"
+                  : "absolute w-[200px] rounded-2xl cursor-grab border-white/20"
               }`}
               style={{
                 backgroundColor: "#2d3436",
                 backgroundImage:
                   "linear-gradient(315deg, #2d3436 0%, #000000 74%)",
                 left: isActive ? 0 : `${index * offset}px`,
-                top: isActive ? 0 : `${index % 2 == 0 ? 20 : 0}px`,
+                top: isActive ? 0 : `${-index * 5}px`,
                 zIndex: isActive ? 40 : index,
+                height: isActive ? "100%" : 250 + index * 5,
                 boxShadow: isActive
                   ? "none"
-                  : `rgb(0 0 0 / 20%) 0px 0px 1px, rgb(0 0 0 / 10%) 0px 0px 40px, rgb(157 157 157 / 10%) 0px 0px 15px inset`,
+                  : `rgb(255 255 255 / 20%) 0px 0px 1px, rgb(255 255 255 / 10%) 0px 0px 40px, rgb(157 157 157 / 10%) 0px 0px 15px inset`,
               }}
               drag="y"
               dragConstraints={{ top: 0, bottom: 0 }}
@@ -101,18 +118,6 @@ export function StackedExpandableCards({ items }: { items: JobListing[] }) {
               }}
               onLayoutAnimationComplete={() => {
                 setIsContentVisible(isActive);
-              }}
-              transition={{
-                type: "spring",
-                duration: 1.2,
-                bounce: 0.3,
-                stiffness: 30,
-                damping: 12,
-                layout: {
-                  duration: 1.2,
-                  type: "spring",
-                  bounce: 0.3,
-                },
               }}
             >
               {/* Card header */}
